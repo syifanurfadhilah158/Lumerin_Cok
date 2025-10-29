@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lumerin_cok — Toko Online</title>
+  <style>
+    :root{--accent:#d35400;--muted:#6b6b6b;--bg:#f7f7f8;--card:#ffffff}
+    *{box-sizing:border-box}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:var(--bg); color:#222}
+    header{background:linear-gradient(90deg,#fff 0%, #fff 60%, rgba(211,84,0,0.06) 100%); padding:16px 20px; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:20; border-bottom:1px solid #eee}
+    .logo{display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit}
+    .logo img{width:48px; height:48px; border-radius:10px; object-fit:cover;}
+    nav{margin-left:auto; display:flex; gap:12px; align-items:center}
+    nav a{color:var(--muted); text-decoration:none; font-size:14px}
+    .icon-btn{display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:10px; cursor:pointer; background:transparent; border:1px solid transparent}
+    .icon-btn:hover{background:#fff; box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+
+    main{max-width:1100px; margin:28px auto; padding:0 20px}
+    .hero{display:flex; flex-wrap:wrap; gap:18px; align-items:center; background:linear-gradient(90deg, #fff, #fff); padding:22px; border-radius:14px}
+    .hero-left{flex:1 1 320px}
+    .hero-right{flex:1 1 300px; display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+    .hero h1{margin:0 0 8px 0; font-size:28px}
+    .hero p{margin:0 0 12px 0; color:var(--muted)}
+    .cta{display:inline-block; padding:10px 16px; background:var(--accent); color:#fff; border-radius:10px; text-decoration:none}
+
+    .products{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-top:18px}
+    .card{background:var(--card); border-radius:12px; padding:12px; box-shadow:0 6px 18px rgba(17,17,17,0.03); display:flex; flex-direction:column}
+    .thumb{height:180px; border-radius:10px; overflow:hidden;}
+    .thumb img{width:100%; height:100%; object-fit:cover; border-radius:10px;}
+    .meta{padding:8px 0 4px 0; display:flex; justify-content:space-between; align-items:center}
+    .price{font-size:18px; font-weight:700}
+    .desc{color:var(--muted); font-size:14px; margin:8px 0}
+    .actions{display:flex; gap:8px; margin-top:auto}
+    button{cursor:pointer}
+    .add{flex:1; padding:9px 10px; border-radius:10px; border:1px solid rgba(0,0,0,0.06); background:#fff;}
+    .fav{padding:8px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); background:transparent}
+
+    .cart{position:fixed; right:20px; bottom:20px; background:var(--accent); color:#fff; padding:12px 14px; border-radius:999px; display:flex; gap:10px; align-items:center; box-shadow:0 10px 30px rgba(0,0,0,0.15); z-index:50}
+    .cart-count{background:#fff; color:var(--accent); width:26px; height:26px; display:grid; place-items:center; border-radius:50%; font-weight:700}
+
+    /* Popup keranjang */
+    .cart-modal{position:fixed; inset:0; background:rgba(0,0,0,0.3); display:none; align-items:center; justify-content:center; z-index:999;}
+    .cart-box{background:#fff; padding:20px; border-radius:10px; width:95%; max-width:550px; max-height:90vh; overflow-y:auto; position:relative;}
+    .cart-box h2{margin:0 0 10px 0;}
+    .cart-close{position:absolute; right:10px; top:10px; cursor:pointer;}
+    .cart-item{display:flex; align-items:center; gap:10px; border-bottom:1px solid #eee; padding:10px 0;}
+    .cart-item img{width:60px; height:60px; object-fit:cover; border-radius:8px;}
+    .qty{display:flex; align-items:center; gap:6px; margin-top:4px;}
+    .qty button{width:26px; height:26px; border:1px solid #aaa; background:#fff; border-radius:4px;}
+    .remove-btn{color:red; cursor:pointer; font-size:13px;}
+    .checkout-form input, .checkout-form textarea{width:100%; margin:5px 0; padding:8px; border:1px solid #aaa; border-radius:6px;}
+    .checkout-form button{background:var(--accent); color:#fff; border:none; padding:10px; border-radius:8px; cursor:pointer;}
+    .checkout-form button:hover{opacity:0.9;}
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="#">
+      <img src="img/Logo.jpg">
+      <div>
+        <div style="font-weight:700">Lumerin_cok</div>
+        <div style="font-size:12px;color:var(--muted)">Cemilan Manis Kekinian</div>
+      </div>
+    </a>
+    <nav>
+      <a href="#produk">Produk</a>
+      <a href="#cara-order">Cara Order</a>
+      <a class="icon-btn" id="ig-link" target="_blank" rel="noopener">Instagram</a>
+      <a class="icon-btn" id="wa-link" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Rasakan Lumerin_cok — manisnya melekat, bahagia di setiap gigitan</h1>
+        <p>Produk premium dibuat dengan bahan pilihan. Pilih 8 varian unggulan kami dan pesan mudah lewat WhatsApp.</p>
+        <a class="cta" href="#produk">Lihat Produk</a>
+      </div>
+      <div class="hero-right">
+        <div class="card"><div style="font-weight:700">Gratis pengiriman</div><div style="font-size:13px;color:var(--muted)">Untuk pembelian > Rp150.000</div></div>
+        <div class="card"><div style="font-weight:700">Pembayaran</div><div style="font-size:13px;color:var(--muted)">Transfer atau via WhatsApp</div></div>
+        <div class="card"><div style="font-weight:700">Pesanan cepat</div><div style="font-size:13px;color:var(--muted)">Proses 1-2 hari kerja</div></div>
+        <div class="card"><div style="font-weight:700">Customer service</div><div style="font-size:13px;color:var(--muted)">Tersedia di WhatsApp</div></div>
+      </div>
+    </section>
+
+    <section id="produk" style="margin-top:18px">
+      <h2>Produk Unggulan</h2>
+      <div class="products" id="product-list"></div>
+    </section>
+
+    <section id="cara-order" style="margin-top:28px">
+      <h2>Cara Order</h2>
+      <ol style="color:var(--muted)">
+        <li>Pilih produk dan jumlah pada halaman produk.</li>
+        <li>Buka keranjang lalu checkout. Isi nama, alamat, dan nomor HP.</li>
+        <li>Checkout akan membuka chat WhatsApp dengan ringkasan pesanan otomatis.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer style="padding:20px;text-align:center;color:var(--muted);font-size:14px">
+    © 2025 Lumerin_cok. All rights reserved.
+  </footer>
+
+  <!-- Tombol keranjang -->
+  <div class="cart" id="cart-button">
+    🛒 <div>Keranjang</div> <div class="cart-count" id="cart-count">0</div>
+  </div>
+
+  <!-- Popup Keranjang -->
+  <div class="cart-modal" id="cart-modal">
+    <div class="cart-box">
+      <span class="cart-close" id="cart-close">✕</span>
+      <h2>Keranjang Anda</h2>
+      <div id="cart-items"></div>
+      <div id="cart-total" style="margin-top:10px;font-weight:700;font-size:16px;"></div>
+      <div style="margin-top:12px;display:flex;justify-content:space-between;gap:10px">
+        <button id="clear-cart">Kosongkan</button>
+        <button id="checkout-btn" style="background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px;">Checkout</button>
+      </div>
+
+      <!-- Form Checkout -->
+      <div id="checkout-form" class="checkout-form" style="display:none;margin-top:15px;">
+        <h3>Isi Data Pemesan</h3>
+        <input id="nama" placeholder="Nama lengkap">
+        <input id="nomor" placeholder="Nomor HP (contoh: 081234567890)">
+        <textarea id="alamat" placeholder="Alamat pengiriman"></textarea>
+        <div style="display:flex;justify-content:space-between;gap:10px;margin-top:10px">
+          <button id="back-btn" style="background:#fff;color:#000;border:1px solid #aaa;">Kembali</button>
+          <button id="wa-btn">Konfirmasi & Buka WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WA = '6285775246781';
+    const IG = 'https://www.instagram.com/lumerin_cok/';
+    document.getElementById('ig-link').href = IG;
+    document.getElementById('wa-link').href = 'https://wa.me/' + WA;
+
+    const products = [
+      {id:1,name:'Lumerin Piscok Coklat Keju',price:15000,img:'img/piscokcoklatkeju.jpeg'},
+      {id:2,name:'Lumerin Piscok Tiramisu Strawberry',price:15000,img:'img/Tiramisu.jpg'},
+      {id:3,name:'Lumerin Piscok Matcha Crumbs',price:15000,img:'img/Matcha.jpg'},
+      {id:4,name:'Lumerin Keju Aroma Original',price:10000,img:'img/Original.jpg'},
+      {id:5,name:'Lumerin Keju Aroma Coklat Keju',price:12000,img:'img/Coklat keju.jpg'},
+      {id:6,name:'Lumerin Keju Coklat Aroma Original',price:10000,img:'img/Keju ori.jpg'},
+      {id:7,name:'Lumerin Keju Coklat Aroma Coklat Keju',price:12000,img:'img/Keju coklat.jpg'},
+      {id:8,name:'Lumerin Mix Semua',price:15000,img:'img/mix.jpg'}
+    ];
+
+    const rupiah = n => 'Rp' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const list = document.getElementById('product-list');
+    const cartBtn = document.getElementById('cart-button');
+    const cartCount = document.getElementById('cart-count');
+    const modal = document.getElementById('cart-modal');
+    const close = document.getElementById('cart-close');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const clearBtn = document.getElementById('clear-cart');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const form = document.getElementById('checkout-form');
+    const backBtn = document.getElementById('back-btn');
+    const waBtn = document.getElementById('wa-btn');
+
+    let cart = [];
+
+    // Tampilkan produk
+    products.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.innerHTML = `
+        <div class="thumb"><img src="${p.img}" alt="${p.name}"></div>
+        <div class="meta"><div style="font-weight:700">${p.name}</div><div class="price">${rupiah(p.price)}</div></div>
+        <div class="actions">
+          <button class="add" data-id="${p.id}">Tambah ke Keranjang</button>
+          <button class="fav">❤</button>
+        </div>`;
+      list.appendChild(el);
+    });
+
+    // Tambah ke keranjang
+    list.addEventListener('click', e => {
+      if(e.target.classList.contains('add')) {
+        const id = parseInt(e.target.dataset.id);
+        const p = products.find(x => x.id === id);
+        const exist = cart.find(x => x.id === id);
+        if(exist) exist.qty++;
+        else cart.push({...p, qty:1});
+        e.target.innerHTML = '✓ Ditambahkan';
+        setTimeout(()=>e.target.innerHTML='Tambah ke Keranjang',1000);
+        render();
+      }
+    });
+
+    // Fungsi render keranjang
+    function render(){
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach((c,i)=>{
+        total += c.price * c.qty;
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+          <img src="${c.img}">
+          <div style="flex:1">
+            <div style="font-weight:600">${c.name}</div>
+            <div>${rupiah(c.price)}</div>
+            <div class="qty">
+              <button onclick="updateQty(${i},-1)">-</button>
+              <span>${c.qty}</span>
+              <button onclick="updateQty(${i},1)">+</button>
+            </div>
+          </div>
+          <div class="remove-btn" onclick="removeItem(${i})">Hapus</div>`;
+        cartItems.appendChild(item);
+      });
+      cartTotal.textContent = 'Total: ' + rupiah(total);
+      cartCount.textContent = cart.length;
+    }
+
+    window.updateQty = (i,n) => {cart[i].qty=Math.max(1,cart[i].qty+n);render();};
+    window.removeItem = i => {cart.splice(i,1);render();};
+
+    cartBtn.onclick = () => modal.style.display='flex';
+    close.onclick = () => modal.style.display='none';
+    clearBtn.onclick = () => {cart=[];render();};
+    checkoutBtn.onclick = () => form.style.display='block';
+    backBtn.onclick = () => form.style.display='none';
+
+    waBtn.onclick = () => {
+      const nama=document.getElementById('nama').value.trim();
+      const nomor=document.getElementById('nomor').value.trim();
+      const alamat=document.getElementById('alamat').value.trim();
+      if(!nama||!nomor||!alamat)return alert('Lengkapi data!');
+      const pesan=cart.map(c=>`${c.name} x${c.qty} = ${rupiah(c.price*c.qty)}`).join('%0A');
+      const total=rupiah(cart.reduce((a,b)=>a+b.price*b.qty,0));
+      window.open(`https://wa.me/${WA}?text=Halo,%20saya%20${nama}%0A%0APesanan:%0A${pesan}%0A%0ATotal:%20${total}%0AAlamat:%20${alamat}%0ANo.%20HP:%20${nomor}`);
+    };
+  </script>
+</body>
+</html>
