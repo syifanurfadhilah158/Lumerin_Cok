@@ -1,257 +1,555 @@
-<!doctype html>
-<html lang="id">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lumerin_cok — Toko Online</title>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FRQYZNEDGM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!doctype html>
+  <html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lumerin_cok — Toko Online</title>
+    
+    <style>
+    
+      :root{
+        --choco-dark:#4a2f22;      
+        --choco-mid:#8f5e43;      
+        --choco-light:#d9b892;    
+        --cream:#f6efe6;           
+        --card:#fff8f4;
+        --muted:#6b5b4d;
+        --accent:var(--choco-mid);
+        --glass: rgba(255,255,255,0.6);
+        --soft-shadow: 0 10px 30px rgba(74,47,34,0.10);
+      }
 
-  gtag('config', 'G-FRQYZNEDGM');
-</script>
-  <style>
-    :root{--accent:#d35400;--muted:#6b6b6b;--bg:#f7f7f8;--card:#ffffff}
-    *{box-sizing:border-box}
-    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:var(--bg); color:#222}
-    header{background:linear-gradient(90deg,#fff 0%, #fff 60%, rgba(211,84,0,0.06) 100%); padding:16px 20px; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:20; border-bottom:1px solid #eee}
-    .logo{display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit}
-    .logo img{width:48px; height:48px; border-radius:10px; object-fit:cover;}
-    nav{margin-left:auto; display:flex; gap:12px; align-items:center}
-    nav a{color:var(--muted); text-decoration:none; font-size:14px}
-    .icon-btn{display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:10px; cursor:pointer; background:transparent; border:1px solid transparent}
-    .icon-btn:hover{background:#fff; box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+      *{box-sizing:border-box;transition:all .22s ease;}
+      html,body{height:100%}
+      body{
+        font-family:Inter, "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        margin:0;
+        background-color: var(--cream);
+        color:#2f241d;
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+        line-height:1.45;
+        -webkit-tap-highlight-color: transparent;
+      }
 
-    main{max-width:1100px; margin:28px auto; padding:0 20px}
-    .hero{display:flex; flex-wrap:wrap; gap:18px; align-items:center; background:linear-gradient(90deg, #fff, #fff); padding:22px; border-radius:14px}
-    .hero-left{flex:1 1 320px}
-    .hero-right{flex:1 1 300px; display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
-    .hero h1{margin:0 0 8px 0; font-size:28px}
-    .hero p{margin:0 0 12px 0; color:var(--muted)}
-    .cta{display:inline-block; padding:10px 16px; background:var(--accent); color:#fff; border-radius:10px; text-decoration:none}
+     
+      .bg-decor{
+        position:fixed; inset:0; z-index:0; pointer-events:none;
+        background:
+          radial-gradient(1000px 300px at 10% 10%, rgba(143,94,67,0.06), transparent 8%),
+          radial-gradient(800px 250px at 90% 90%, rgba(165,106,67,0.03), transparent 6%),
+          linear-gradient(180deg, rgba(74,47,34,0.02), rgba(255,255,255,0.02));
+        overflow:hidden;
+        mix-blend-mode:normal;
+      }
+   
+      .bg-decor::before{
+        content:"";
+        position:absolute; inset:-10% -30%;
+        background:
+          radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06), transparent 6%),
+          radial-gradient(circle at 80% 70%, rgba(255,255,255,0.04), transparent 6%),
+          linear-gradient(120deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0));
+        transform:rotate(-6deg);
+        filter:blur(18px) saturate(1.03);
+        opacity:0.95;
+      }
 
-    .products{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-top:18px}
-    .card{background:var(--card); border-radius:12px; padding:12px; box-shadow:0 6px 18px rgba(17,17,17,0.03); display:flex; flex-direction:column}
-    .thumb{height:180px; border-radius:10px; overflow:hidden;}
-    .thumb img{width:100%; height:100%; object-fit:cover; border-radius:10px;}
-    .meta{padding:8px 0 4px 0; display:flex; justify-content:space-between; align-items:center}
-    .price{font-size:18px; font-weight:700}
-    .desc{color:var(--muted); font-size:14px; margin:8px 0}
-    .actions{display:flex; gap:8px; margin-top:auto}
-    button{cursor:pointer}
-    .add{flex:1; padding:9px 10px; border-radius:10px; border:1px solid rgba(0,0,0,0.06); background:#fff;}
-    .fav{padding:8px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); background:transparent}
+   
+      header{
+        position:sticky; top:0; z-index:60;
+        background:linear-gradient(90deg, rgba(255,255,255,0.85), rgba(255,250,244,0.95));
+        padding:14px 18px; display:flex; align-items:center; gap:14px;
+        border-bottom:1px solid rgba(110,85,70,0.06);
+        backdrop-filter: blur(6px);
+      }
+      .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;z-index:70}
+      .logo img{width:48px;height:48px;border-radius:12px;object-fit:cover;box-shadow:0 6px 16px rgba(74,47,34,0.08)}
+      .logo div:first-child{font-weight:900;color:var(--choco-dark)}
+      nav{margin-left:auto;display:flex;gap:12px;align-items:center}
+      nav a{color:var(--muted);text-decoration:none;font-size:15px;padding:8px 10px;border-radius:10px}
+      nav a:hover{color:var(--choco-dark);background:rgba(136,97,72,0.06)}
+      .icon-btn{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:10px;cursor:pointer;background:transparent;border:1px solid transparent}
+      .icon-btn:hover{background:var(--glass);box-shadow:0 6px 18px rgba(74,47,34,0.06);transform:translateY(-2px)}
 
-    .cart{position:fixed; right:20px; bottom:20px; background:var(--accent); color:#fff; padding:12px 14px; border-radius:999px; display:flex; gap:10px; align-items:center; box-shadow:0 10px 30px rgba(0,0,0,0.15); z-index:50}
-    .cart-count{background:#fff; color:var(--accent); width:26px; height:26px; display:grid; place-items:center; border-radius:50%; font-weight:700}
+    
+      main{max-width:1100px;margin:26px auto;padding:0 18px;position:relative;z-index:10}
 
-    /* Popup keranjang */
-    .cart-modal{position:fixed; inset:0; background:rgba(0,0,0,0.3); display:none; align-items:center; justify-content:center; z-index:999;}
-    .cart-box{background:#fff; padding:20px; border-radius:10px; width:95%; max-width:550px; max-height:90vh; overflow-y:auto; position:relative;}
-    .cart-box h2{margin:0 0 10px 0;}
-    .cart-close{position:absolute; right:10px; top:10px; cursor:pointer;}
-    .cart-item{display:flex; align-items:center; gap:10px; border-bottom:1px solid #eee; padding:10px 0;}
-    .cart-item img{width:60px; height:60px; object-fit:cover; border-radius:8px;}
-    .qty{display:flex; align-items:center; gap:6px; margin-top:4px;}
-    .qty button{width:26px; height:26px; border:1px solid #aaa; background:#fff; border-radius:4px;}
-    .remove-btn{color:red; cursor:pointer; font-size:13px;}
-    .checkout-form input, .checkout-form textarea{width:100%; margin:5px 0; padding:8px; border:1px solid #aaa; border-radius:6px;}
-    .checkout-form button{background:var(--accent); color:#fff; border:none; padding:10px; border-radius:8px; cursor:pointer;}
-    .checkout-form button:hover{opacity:0.9;}
-  </style>
-</head>
-<body>
-  <header>
-    <a class="logo" href="#">
-      <img src="img/Logo.jpg">
-      <div>
-        <div style="font-weight:1000">Lumerin_cok</div>
-        <div style="font-size:12px;color:var(--muted)">Cemilan Manis Kekinian</div>
+     
+      .hero{
+        position:relative;
+        display:flex;flex-wrap:wrap;gap:18px;align-items:center;
+        padding:26px;border-radius:16px;box-shadow:var(--soft-shadow);
+        border:1px solid rgba(143,94,67,0.06);
+        overflow:hidden;
+        background:linear-gradient(180deg,#fff8f2,#fff5ee 60%);
+      }
+   
+      .hero .parallax-sheen{
+        position:absolute; right:-10%; top:-20%; width:140%; height:160%;
+        background:linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.0) 30%, rgba(255,255,255,0.05) 60%);
+        transform:rotate(-18deg) translateY(0);
+        filter:blur(12px);
+        pointer-events:none; opacity:0.85;
+      }
+      .hero-left{flex:1 1 320px;min-width:260px;position:relative}
+      .hero-right{flex:1 1 300px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;min-width:220px;position:relative;z-index:5}
+      .hero h1{margin:0 0 8px 0;font-size:28px;font-weight:800;color:var(--choco-dark)}
+      .hero p{margin:0 0 12px 0;color:var(--muted)}
+      .cta{display:inline-block;padding:10px 16px;background:var(--accent);color:#fff;border-radius:12px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(143,94,67,0.12)}
+      .cta:active{transform:translateY(1px)}
+
+      .intro{
+        background:linear-gradient(90deg, rgba(217,184,138,0.14), rgba(255,255,255,0.25));
+        border-left:4px solid var(--choco-mid);
+        padding:12px;border-radius:10px;margin-bottom:12px;color:var(--choco-dark);font-size:14px;
+      }
+
+      
+      .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px}
+      .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(74,47,34,0.04);display:flex;flex-direction:column;min-height:320px}
+      .card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(74,47,34,0.08)}
+      .thumb{height:180px;border-radius:10px;overflow:hidden;}
+      .thumb img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block} /* image sizing unchanged */
+      .meta{padding:8px 0 4px 0;display:flex;justify-content:space-between;align-items:center}
+      .price{font-size:18px;font-weight:800;color:var(--choco-dark)}
+      .desc{color:var(--muted);font-size:14px;margin:8px 0}
+      .actions{display:flex;gap:8px;margin-top:auto}
+      button{cursor:pointer;border:0}
+      .add{flex:1;padding:9px 10px;border-radius:10px;border:1px solid rgba(89,56,42,0.06);background:linear-gradient(180deg,#fff7f1,#fff0e6);font-weight:700;color:var(--choco-dark)}
+      .add:hover{background:linear-gradient(180deg,var(--choco-light),#fff3e6)}
+      .fav{padding:8px;border-radius:8px;border:1px solid rgba(89,56,42,0.06);background:transparent;color:var(--choco-mid)}
+
+      .cart{position:fixed;right:18px;bottom:18px;background:var(--choco-mid);color:#fff;padding:12px 14px;border-radius:999px;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px rgba(74,47,34,0.18);z-index:80}
+      .cart-count{background:#fff;color:var(--choco-mid);width:26px;height:26px;display:grid;place-items:center;border-radius:50%;font-weight:700}
+
+     
+      .cart-modal{position:fixed;inset:0;background:rgba(20,12,8,0.32);display:none;align-items:center;justify-content:center;z-index:999;}
+      .cart-box{background:linear-gradient(180deg,#fff9f5,#fff7f2);padding:20px;border-radius:12px;width:95%;max-width:580px;max-height:90vh;overflow-y:auto;position:relative;border:1px solid rgba(89,56,42,0.06)}
+      .cart-box h2{margin:0 0 10px 0;color:var(--choco-dark)}
+      .cart-close{position:absolute;right:10px;top:10px;cursor:pointer;font-weight:700;color:var(--muted)}
+      .cart-item{display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(89,56,42,0.05);padding:10px 0}
+      .cart-item img{width:60px;height:60px;object-fit:cover;border-radius:8px}
+      .qty{display:flex;align-items:center;gap:6px;margin-top:6px}
+      .qty button{width:28px;height:28px;border:1px solid rgba(89,56,42,0.12);background:#fff;border-radius:6px}
+      .remove-btn{color:#bb3b3b;cursor:pointer;font-size:13px}
+
+      .checkout-form input,.checkout-form textarea{width:100%;margin:5px 0;padding:10px;border:1px solid rgba(89,56,42,0.12);border-radius:8px;background:rgba(255,255,255,0.9)}
+      .checkout-form button{background:var(--choco-mid);color:#fff;border:none;padding:10px 12px;border-radius:8px;cursor:pointer}
+      .checkout-form button:hover{opacity:0.95}
+
+     
+      footer{padding:24px;text-align:center;color:var(--muted);font-size:14px;margin-top:24px;background:transparent}
+      .quotes-wrap{max-width:820px;margin:22px auto 30px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff6f0,#fff8f6);border:1px solid rgba(143,94,67,0.04);box-shadow:0 8px 20px rgba(74,47,34,0.04)}
+      .quotes{
+        position:relative;overflow:hidden;display:block;padding:6px 8px;
+      }
+      .quote-track{display:flex;gap:18px;transition:transform .45s cubic-bezier(.2,.9,.2,1);will-change:transform}
+      .quote{min-width:100%;flex:0 0 100%;padding:16px;border-radius:10px;background:linear-gradient(180deg,#fff,#fff6f1);color:var(--choco-dark);font-style:italic;box-shadow:0 6px 18px rgba(74,47,34,0.04);text-align:center;font-size:15px}
+      .controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px}
+      .controls-left{font-weight:700;color:var(--choco-dark)}
+      .controls-right{display:flex;align-items:center;gap:8px}
+      .q-btn{background:transparent;border:1px solid rgba(89,56,42,0.08);padding:8px;border-radius:10px;cursor:pointer}
+      .q-btn:active{transform:scale(.98)}
+      .dots{display:flex;gap:6px}
+      .dot{width:8px;height:8px;border-radius:50%;background:rgba(89,56,42,0.12)}
+      .dot.active{background:var(--choco-mid)}
+
+    
+      @media (max-width:720px){
+        .hero{padding:18px}
+        .hero-left h1{font-size:20px}
+        .card{min-height:300px}
+        .cart{right:12px;bottom:12px;padding:10px}
+        .quote{font-size:14px;padding:12px}
+      }
+
+      
+      a:focus, button:focus {outline:3px solid rgba(143,94,67,0.12);outline-offset:3px}
+    </style>
+  </head>
+  <body>
+   
+    <div class="bg-decor" id="bg-decor" aria-hidden="true"></div>
+
+    <header>
+      <a class="logo" href="#">
+        <img src="img/Logo.jpg" alt="logo">
+        <div>
+          <div style="font-weight:1000">Lumerin_cok</div>
+          <div style="font-size:12px;color:var(--muted)">Cemilan Manis Kekinian</div>
+        </div>
+      </a>
+      <nav>
+        <a href="#produk">Produk</a>
+        <a href="#cara-order">Cara Order</a>
+        <a class="icon-btn" id="ig-link" target="_blank" rel="noopener">Instagram</a>
+        <a class="icon-btn" id="wa-link" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="parallax-sheen" id="parallax-sheen" aria-hidden="true"></div>
+        <div class="hero-left">
+          <h1 id="hero-title">HALO, SWEETY!</h1>
+          <div class="intro">✨ Cemilan manis ala Syifa Nur Fadhilah yang dibuat dengan penuh cinta 🤎
+
+           ✨ Selamat datang di Lumerin_cok — surga nya cemilan coklat yang hangat dan kekinian. Pilihan bahan premium, tekstur meleleh, dan varian rasa yang cocok buat nemenin santaimu.</div>
+          <h1 id="hero-title">Rasakan Lumerin_cok — manisnya melekat, bahagia di setiap gigitan</h1>
+          <p>Produk premium dibuat dengan bahan pilihan dan sentuhan cinta. Pilih 8 varian unggulan kami dan pesan mudah lewat WhatsApp — karena hidup butuh sedikit manis setiap hari 🍫</p>
+          <a class="cta" href="#produk">Lihat Produk</a>
+        </div>
+        <div class="hero-right" aria-hidden="false">
+          <div class="card"><div style="font-weight:700">Gratis pengiriman</div><div style="font-size:13px;color:var(--muted)">Untuk pembelian ≥ Rp100.000</div></div>
+          <div class="card"><div style="font-weight:700">Pembayaran</div><div style="font-size:13px;color:var(--muted)">Transfer atau via WhatsApp</div></div>
+          <div class="card"><div style="font-weight:700">Pesanan cepat</div><div style="font-size:13px;color:var(--muted)">Proses 1-2 hari kerja</div></div>
+          <div class="card"><div style="font-weight:700">Customer service</div><div style="font-size:13px;color:var(--muted)">Tersedia di WhatsApp</div></div>
+        </div>
+      </section>
+
+      <section id="produk" style="margin-top:18px">
+        <h2>Produk Unggulan</h2>
+        <div class="products" id="product-list"></div>
+      </section>
+
+      <section id="cara-order" style="margin-top:28px">
+        <h2>Cara Order</h2>
+        <ol style="color:var(--muted)">
+          <li>Pilih produk dan jumlah pada halaman produk.</li>
+          <li>Buka keranjang lalu checkout. Isi nama, alamat, dan nomor HP.</li>
+          <li>Checkout akan membuka chat WhatsApp dengan ringkasan pesanan otomatis.</li>
+        </ol>
+      </section>
+
+      <!-- Quotes carousel (single slide visible at a time) -->
+      <div class="quotes-wrap" aria-label="Quotes manis dari Lumerin_cok">
+        <div class="controls">
+          <div class="controls-left">Quotes Manis</div>
+          <div class="controls-right">
+            <div class="dots" id="quote-dots" aria-hidden="true"></div>
+            <div style="width:8px"></div>
+            <div style="display:flex;gap:8px">
+              <button class="q-btn" id="prev-quote" aria-label="Sebelumnya">‹</button>
+              <button class="q-btn" id="next-quote" aria-label="Selanjutnya">›</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="quotes" id="quotes">
+          <div class="quote-track" id="quote-track">
+            <div class="quote">“Sebuah pelukan dalam bentuk cemilan manis.” 🤎</div>
+              <div class="quote">“Karena kebahagiaan kadang sesederhana coklat yang lumer.” 🤎</div>
+              <div class="quote">“Bukan sekadar cemilan, tapi cara kecil untuk mencintai diri sendiri.” 🤎</div>
+            <div class="quote">“Hidup mungkin pahit, tapi cemilan dari Lumerin_cok selalu manis di hati.” 🍫</div>
+            <div class="quote">“Setiap gigitan = satu dosis serotonin tambahan.” 🤎</div>
+            <div class="quote">“Cemilan coklat + teman baik = resep kebahagiaan sederhana.” ✨</div>
+            <div class="quote">“Nggak butuh kata-kata manis, cukup coklat yang lumer dan kamu.” 💌</div>
+            <div class="quote">“Sore yang sempurna: musik lembut, secangkir kopi, dan Lumerin_cok.” ☕️</div>
+          </div>
+        </div>
       </div>
-    </a>
-    <nav>
-      <a href="#produk">Produk</a>
-      <a href="#cara-order">Cara Order</a>
-      <a class="icon-btn" id="ig-link" target="_blank" rel="noopener">Instagram</a>
-      <a class="icon-btn" id="wa-link" target="_blank" rel="noopener">WhatsApp</a>
-    </nav>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-left">
-        <h1>Rasakan Lumerin_cok — manisnya melekat, bahagia di setiap gigitan</h1>
-        <p>Produk premium dibuat dengan bahan pilihan. Pilih 8 varian unggulan kami dan pesan mudah lewat WhatsApp.</p>
-        <a class="cta" href="#produk">Lihat Produk</a>
-      </div>
-      <div class="hero-right">
-        <div class="card"><div style="font-weight:700">Gratis pengiriman</div><div style="font-size:13px;color:var(--muted)">Untuk pembelian > Rp150.000</div></div>
-        <div class="card"><div style="font-weight:700">Pembayaran</div><div style="font-size:13px;color:var(--muted)">Transfer atau via WhatsApp</div></div>
-        <div class="card"><div style="font-weight:700">Pesanan cepat</div><div style="font-size:13px;color:var(--muted)">Proses 1-2 hari kerja</div></div>
-        <div class="card"><div style="font-weight:700">Customer service</div><div style="font-size:13px;color:var(--muted)">Tersedia di WhatsApp</div></div>
-      </div>
-    </section>
+    </main>
 
-    <section id="produk" style="margin-top:18px">
-      <h2>Produk Unggulan</h2>
-      <div class="products" id="product-list"></div>
-    </section>
+    
+      <div class="quotes-wrap" aria-label="Quotes manis dari Lumerin_cok">
+      
 
-    <section id="cara-order" style="margin-top:28px">
-      <h2>Cara Order</h2>
-      <ol style="color:var(--muted)">
-        <li>Pilih produk dan jumlah pada halaman produk.</li>
-        <li>Buka keranjang lalu checkout. Isi nama, alamat, dan nomor HP.</li>
-        <li>Checkout akan membuka chat WhatsApp dengan ringkasan pesanan otomatis.</li>
-      </ol>
-    </section>
-  </main>
+    
+      <section id="testimoni" style="margin-top:40px">
+        <h2 style="text-align:center;color:var(--choco-dark)">TESTIMONI DARI SI MANIS</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:16px;">
+          <div style="background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 20px rgba(74,47,34,0.05);">
+            <div style="font-style:italic;color:var(--muted)">“Rasanya bener-bener lumer di mulut! Nggak terlalu manis, pas banget buat temen nugas.”</div>
+            <div style="margin-top:10px;font-weight:700;color:var(--choco-dark)">— Nacia, Bandung</div>
+          </div>
+          <div style="background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 20px rgba(74,47,34,0.05);">
+            <div style="font-style:italic;color:var(--muted)">“Aku udah repeat order 3x! Piscoknya legit banget, packaging-nya juga lucu.”</div>
+            <div style="margin-top:10px;font-weight:700;color:var(--choco-dark)">— Azalea, Jakarta</div>
+          </div>
+          <div style="background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 20px rgba(74,47,34,0.05);">
+            <div style="font-style:italic;color:var(--muted)">“Cemilan terenak versi aku. Wangi coklatnya tuh bikin mood langsung naik.”</div>
+            <div style="margin-top:10px;font-weight:700;color:var(--choco-dark)">— Shanum, Surabaya</div>
+          </div>
+          <div style="background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 20px rgba(74,47,34,0.05);">
+            <div style="font-style:italic;color:var(--muted)">“Kemasannya aman, pengiriman cepat, rasanya nggak kalah sama cafe dessert mahal!”</div>
+            <div style="margin-top:10px;font-weight:700;color:var(--choco-dark)">— Syaqueena, Bogor</div>
+          </div>
+        </div>
+      </section>
 
-  <footer style="padding:20px;text-align:center;color:var(--muted);font-size:14px">
-    © 2025 Lumerin_cok. All rights reserved.
-  </footer>
 
-  <!-- Tombol keranjang -->
-  <div class="cart" id="cart-button">
-    🛒 <div>Keranjang</div> <div class="cart-count" id="cart-count">0</div>
-  </div>
+    <footer>
+      © 2025 Lumerin_cok. All rights reserved.
+    </footer>
 
-  <!-- Popup Keranjang -->
-  <div class="cart-modal" id="cart-modal">
-    <div class="cart-box">
-      <span class="cart-close" id="cart-close">✕</span>
-      <h2>Keranjang Anda</h2>
-      <div id="cart-items"></div>
-      <div id="cart-total" style="margin-top:10px;font-weight:700;font-size:16px;"></div>
-      <div style="margin-top:12px;display:flex;justify-content:space-between;gap:10px">
-        <button id="clear-cart">Kosongkan</button>
-        <button id="checkout-btn" style="background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px;">Checkout</button>
-      </div>
+    <!-- Tombol keranjang -->
+    <div class="cart" id="cart-button" role="button" aria-label="Buka keranjang">
+      🛒 <div style="font-weight:700">Keranjang</div> <div class="cart-count" id="cart-count">0</div>
+    </div>
 
-      <!-- Form Checkout -->
-      <div id="checkout-form" class="checkout-form" style="display:none;margin-top:15px;">
-        <h3>Isi Data Pemesan</h3>
-        <input id="nama" placeholder="Nama lengkap">
-        <input id="nomor" placeholder="Nomor HP (contoh: 081234567890)">
-        <textarea id="alamat" placeholder="Alamat pengiriman"></textarea>
-        <div style="display:flex;justify-content:space-between;gap:10px;margin-top:10px">
-          <button id="back-btn" style="background:#fff;color:#000;border:1px solid #aaa;">Kembali</button>
-          <button id="wa-btn">Konfirmasi & Buka WhatsApp</button>
+    <!-- Popup Keranjang -->
+    <div class="cart-modal" id="cart-modal" aria-hidden="true">
+      <div class="cart-box" role="dialog" aria-modal="true" aria-label="Keranjang Belanja">
+        <span class="cart-close" id="cart-close" role="button" aria-label="Tutup">✕</span>
+        <h2>Keranjang Anda</h2>
+        <div id="cart-items"></div>
+        <div id="cart-total" style="margin-top:10px;font-weight:700;font-size:16px;"></div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;gap:10px">
+          <button id="clear-cart">Kosongkan</button>
+          <button id="checkout-btn" style="background:var(--choco-mid);color:#fff;border:none;padding:8px 12px;border-radius:8px;">Checkout</button>
+        </div>
+
+        <!-- Form Checkout -->
+        <div id="checkout-form" class="checkout-form" style="display:none;margin-top:15px;">
+          <h3>Isi Data Pemesan</h3>
+          <input id="nama" placeholder="Nama lengkap">
+          <input id="nomor" placeholder="Nomor HP (contoh: 081234567890)">
+          <textarea id="alamat" placeholder="Alamat pengiriman"></textarea>
+          <div style="display:flex;justify-content:space-between;gap:10px;margin-top:10px">
+            <button id="back-btn" style="background:#fff;color:#000;border:1px solid #aaa;">Kembali</button>
+            <button id="wa-btn" style="background:var(--choco-mid);color:#fff;border:none;padding:10px 12px;border-radius:8px;">Konfirmasi & Buka WhatsApp</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    const WA = '6285775246781';
-    const IG = 'https://www.instagram.com/lumerin_cok/';
-    document.getElementById('ig-link').href = IG;
-    document.getElementById('wa-link').href = 'https://wa.me/' + WA;
+    <script>
+     
 
-    const products = [
-      {id:1,name:'Lumerin Piscok Coklat Keju',price:15000,img:'img/piscokcoklatkeju.jpeg'},
-      {id:2,name:'Lumerin Piscok Tiramisu Strawberry',price:15000,img:'img/Tiramisu.jpg'},
-      {id:3,name:'Lumerin Piscok Matcha Crumbs',price:15000,img:'img/Matcha.jpg'},
-      {id:4,name:'Lumerin Keju Aroma Original',price:10000,img:'img/Original.jpg'},
-      {id:5,name:'Lumerin Keju Aroma Coklat Keju',price:12000,img:'img/Coklat keju.jpg'},
-      {id:6,name:'Lumerin Keju Coklat Aroma Original',price:10000,img:'img/Keju ori.jpg'},
-      {id:7,name:'Lumerin Keju Coklat Aroma Coklat Keju',price:12000,img:'img/Keju coklat.jpg'},
-      {id:8,name:'Lumerin Mix Semua',price:15000,img:'img/mix.jpg'}
-    ];
+      const WA = '6285775246781';
+      const IG = 'https://www.instagram.com/lumerin_cok/';
+      document.getElementById('ig-link').href = IG;
+      document.getElementById('wa-link').href = 'https://wa.me/' + WA;
 
-    const rupiah = n => 'Rp' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    const list = document.getElementById('product-list');
-    const cartBtn = document.getElementById('cart-button');
-    const cartCount = document.getElementById('cart-count');
-    const modal = document.getElementById('cart-modal');
-    const close = document.getElementById('cart-close');
-    const cartItems = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-    const clearBtn = document.getElementById('clear-cart');
-    const checkoutBtn = document.getElementById('checkout-btn');
-    const form = document.getElementById('checkout-form');
-    const backBtn = document.getElementById('back-btn');
-    const waBtn = document.getElementById('wa-btn');
+      const products = [
+        {id:1,name:'Lumerin Piscok-Coklat Keju',price:20000,img:'img/piscokcoklatkeju.jpeg'},
+        {id:2,name:'Lumerin Piscok-Strawberry Chips',price:20000,img:'img/Tiramisu.jpg'},
+        {id:3,name:'Lumerin Piscok-Matcha Crumbchips',price:20000,img:'img/Matcha.jpg'},
+        {id:4,name:'Lumerin Keju Aroma-Original',price:13000,img:'img/Original.jpg'},
+        {id:5,name:'Lumerin Keju Aroma-Coklat Keju',price:17000,img:'img/Coklat keju.jpg'},
+        {id:6,name:'Lumerin Keju Coklat Aroma-Original',price:13000,img:'img/Keju ori.jpg'},
+        {id:7,name:'Lumerin Keju Coklat Aroma-Coklat Keju',price:17000,img:'img/Keju coklat.jpg'},
+        {id:8,name:'Lumerin Mix Semua',price:20000,img:'img/mix.jpg'}
+      ];
 
-    let cart = [];
+      const rupiah = n => 'Rp' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      const list = document.getElementById('product-list');
+      const cartBtn = document.getElementById('cart-button');
+      const cartCount = document.getElementById('cart-count');
+      const modal = document.getElementById('cart-modal');
+      const close = document.getElementById('cart-close');
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const clearBtn = document.getElementById('clear-cart');
+      const checkoutBtn = document.getElementById('checkout-btn');
+      const form = document.getElementById('checkout-form');
+      const backBtn = document.getElementById('back-btn');
+      const waBtn = document.getElementById('wa-btn');
 
-    // Tampilkan produk
-    products.forEach(p => {
-      const el = document.createElement('div');
-      el.className = 'card';
-      el.innerHTML = `
-        <div class="thumb"><img src="${p.img}" alt="${p.name}"></div>
-        <div class="meta"><div style="font-weight:700">${p.name}</div><div class="price">${rupiah(p.price)}</div></div>
-        <div class="actions">
-          <button class="add" data-id="${p.id}">Tambah ke Keranjang</button>
-          <button class="fav">❤</button>
-        </div>`;
-      list.appendChild(el);
-    });
+      let cart = [];
 
-    // Tambah ke keranjang
-    list.addEventListener('click', e => {
-      if(e.target.classList.contains('add')) {
-        const id = parseInt(e.target.dataset.id);
-        const p = products.find(x => x.id === id);
-        const exist = cart.find(x => x.id === id);
-        if(exist) exist.qty++;
-        else cart.push({...p, qty:1});
-        e.target.innerHTML = '✓ Ditambahkan';
-        setTimeout(()=>e.target.innerHTML='Tambah ke Keranjang',1000);
-        render();
-      }
-    });
-
-    // Fungsi render keranjang
-    function render(){
-      cartItems.innerHTML = '';
-      let total = 0;
-      cart.forEach((c,i)=>{
-        total += c.price * c.qty;
-        const item = document.createElement('div');
-        item.className = 'cart-item';
-        item.innerHTML = `
-          <img src="${c.img}">
-          <div style="flex:1">
-            <div style="font-weight:600">${c.name}</div>
-            <div>${rupiah(c.price)}</div>
-            <div class="qty">
-              <button onclick="updateQty(${i},-1)">-</button>
-              <span>${c.qty}</span>
-              <button onclick="updateQty(${i},1)">+</button>
-            </div>
-          </div>
-          <div class="remove-btn" onclick="removeItem(${i})">Hapus</div>`;
-        cartItems.appendChild(item);
+      products.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'card';
+        el.innerHTML = `
+          <div class="thumb"><img src="${p.img}" alt="${p.name}"></div>
+          <div class="meta"><div style="font-weight:700">${p.name}</div><div class="price">${rupiah(p.price)}</div></div>
+          <div class="actions">
+            <button class="add" data-id="${p.id}">Tambah ke Keranjang</button>
+            <button class="fav">❤</button>
+          </div>`;
+        list.appendChild(el);
       });
-      cartTotal.textContent = 'Total: ' + rupiah(total);
-      cartCount.textContent = cart.length;
-    }
 
-    window.updateQty = (i,n) => {cart[i].qty=Math.max(1,cart[i].qty+n);render();};
-    window.removeItem = i => {cart.splice(i,1);render();};
+      
+      list.addEventListener('click', e => {
+        if(e.target.classList.contains('add')) {
+          const id = parseInt(e.target.dataset.id);
+          const p = products.find(x => x.id === id);
+          const exist = cart.find(x => x.id === id);
+          if(exist) exist.qty++;
+          else cart.push({...p, qty:1});
+          e.target.innerHTML = '✓ Ditambahkan';
+          setTimeout(()=>e.target.innerHTML='Tambah ke Keranjang',900);
+          render();
+        }
+      });
 
-    cartBtn.onclick = () => modal.style.display='flex';
-    close.onclick = () => modal.style.display='none';
-    clearBtn.onclick = () => {cart=[];render();};
-    checkoutBtn.onclick = () => form.style.display='block';
-    backBtn.onclick = () => form.style.display='none';
+      function render(){
+        cartItems.innerHTML = '';
+        let total = 0;
+        cart.forEach((c,i)=>{
+          total += c.price * c.qty;
+          const item = document.createElement('div');
+          item.className = 'cart-item';
+          item.innerHTML = `
+            <img src="${c.img}" alt="${c.name}">
+            <div style="flex:1">
+              <div style="font-weight:600">${c.name}</div>
+              <div>${rupiah(c.price)}</div>
+              <div class="qty">
+                <button onclick="updateQty(${i},-1)">-</button>
+                <span>${c.qty}</span>
+                <button onclick="updateQty(${i},1)">+</button>
+              </div>
+            </div>
+            <div class="remove-btn" onclick="removeItem(${i})">Hapus</div>`;
+          cartItems.appendChild(item);
+        });
+        cartTotal.textContent = 'Total: ' + rupiah(total);
+        cartCount.textContent = cart.length;
+      }
 
-    waBtn.onclick = () => {
-      const nama=document.getElementById('nama').value.trim();
-      const nomor=document.getElementById('nomor').value.trim();
-      const alamat=document.getElementById('alamat').value.trim();
-      if(!nama||!nomor||!alamat)return alert('Lengkapi data!');
-      const pesan=cart.map(c=>`${c.name} x${c.qty} = ${rupiah(c.price*c.qty)}`).join('%0A');
-      const total=rupiah(cart.reduce((a,b)=>a+b.price*b.qty,0));
-      window.open(`https://wa.me/${WA}?text=Halo,%20saya%20${nama}%0A%0APesanan:%0A${pesan}%0A%0ATotal:%20${total}%0AAlamat:%20${alamat}%0ANo.%20HP:%20${nomor}`);
-    };
-  </script>
-</body>
-</html>
+      window.updateQty = (i,n) => { if(cart[i]) { cart[i].qty=Math.max(1,cart[i].qty+n); render(); } };
+      window.removeItem = i => { cart.splice(i,1); render(); };
+
+      cartBtn.onclick = () => { modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); };
+      close.onclick = () => { modal.style.display='none'; modal.setAttribute('aria-hidden','true'); };
+      clearBtn.onclick = () => { cart=[]; render(); };
+      checkoutBtn.onclick = () => form.style.display='block';
+      backBtn.onclick = () => form.style.display='none';
+
+      waBtn.onclick = () => {
+        const nama=document.getElementById('nama').value.trim();
+        const nomor=document.getElementById('nomor').value.trim();
+        const alamat=document.getElementById('alamat').value.trim();
+        if(!nama||!nomor||!alamat)return alert('Lengkapi data!');
+        const pesan=cart.map(c=>`${c.name} x${c.qty} = ${rupiah(c.price*c.qty)}`).join('%0A');
+        const total=rupiah(cart.reduce((a,b)=>a+b.price*b.qty,0));
+        window.open(`https://wa.me/${WA}?text=Halo,%20saya%20${nama}%0A%0APesanan:%0A${pesan}%0A%0ATotal:%20${total}%0AAlamat:%20${alamat}%0ANo.%20HP:%20${nomor}`);
+      };
+
+      
+      (function(){
+        const track = document.getElementById('quote-track');
+        const prev = document.getElementById('prev-quote');
+        const next = document.getElementById('next-quote');
+        const dotsWrap = document.getElementById('quote-dots');
+        const quotes = Array.from(track.children);
+        const total = quotes.length;
+        let idx = 0;
+        let startX = 0;
+        let currentTranslate = 0;
+        let isDragging = false;
+        let autoTimer = null;
+        const gap = 18;
+
+        // create dots
+        for(let i=0;i<total;i++){
+          const d = document.createElement('div');
+          d.className = 'dot' + (i===0 ? ' active' : '');
+          d.dataset.i = i;
+          d.addEventListener('click', ()=>goTo(i));
+          dotsWrap.appendChild(d);
+        }
+        const dots = Array.from(dotsWrap.children);
+
+        function calcCardWidth(){
+        
+          const q = document.getElementById('quotes');
+          return q.getBoundingClientRect().width;
+        }
+
+        function update(){
+          const cardWidth = calcCardWidth();
+          currentTranslate = - (cardWidth + gap) * idx;
+          track.style.transform = `translateX(${currentTranslate}px)`;
+          dots.forEach((d,i)=> d.classList.toggle('active', i===idx));
+        }
+
+        function goTo(i){
+          idx = Math.max(0, Math.min(total-1, i));
+          update();
+          restartAuto();
+        }
+
+        prev.addEventListener('click', ()=> goTo(idx-1));
+        next.addEventListener('click', ()=> goTo(idx+1));
+
+        
+        const qWrap = document.getElementById('quotes');
+        qWrap.addEventListener('touchstart', (e)=> {
+          startX = e.touches[0].clientX;
+          isDragging = true;
+        }, {passive:true});
+        qWrap.addEventListener('touchmove', (e)=> {
+          if(!isDragging) return;
+          const x = e.touches[0].clientX;
+          const dx = x - startX;
+          track.style.transform = `translateX(${currentTranslate + dx}px)`;
+        }, {passive:true});
+        qWrap.addEventListener('touchend', (e)=> {
+          isDragging = false;
+          const endX = e.changedTouches[0].clientX;
+          const dx = endX - startX;
+          const threshold = 40;
+          if(dx < -threshold) goTo(idx+1);
+          else if(dx > threshold) goTo(idx-1);
+          else update();
+        });
+
+        let mouseDown = false, mouseStartX = 0;
+        qWrap.addEventListener('mousedown', (e)=> {
+          mouseDown = true; mouseStartX = e.clientX; isDragging = true;
+        });
+        window.addEventListener('mousemove', (e)=>{
+          if(!mouseDown) return;
+          const dx = e.clientX - mouseStartX;
+          track.style.transform = `translateX(${currentTranslate + dx}px)`;
+        });
+        window.addEventListener('mouseup', (e)=>{
+          if(!mouseDown) return;
+          mouseDown = false; isDragging = false;
+          const dx = e.clientX - mouseStartX;
+          const threshold = 40;
+          if(dx < -threshold) goTo(idx+1);
+          else if(dx > threshold) goTo(idx-1);
+          else update();
+        });
+
+       
+        function startAuto(){
+          stopAuto();
+          autoTimer = setInterval(()=> { goTo((idx+1)%total); }, 5000);
+        }
+        function stopAuto(){ if(autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+        function restartAuto(){ stopAuto(); startAuto(); }
+
+        qWrap.addEventListener('mouseenter', stopAuto);
+        qWrap.addEventListener('mouseleave', startAuto);
+        qWrap.addEventListener('touchstart', stopAuto, {passive:true});
+
+        // init
+        window.addEventListener('load', ()=>{ update(); startAuto(); });
+        window.addEventListener('resize', ()=>{ update(); });
+      })();
+
+    
+      (function(){
+        const decor = document.getElementById('bg-decor');
+        const sheen = document.getElementById('parallax-sheen');
+        let lastScroll = 0;
+        let ticking = false;
+        function onScroll(){
+          lastScroll = window.scrollY || window.pageYOffset;
+          if(!ticking){
+            window.requestAnimationFrame(()=> {
+              const y = Math.min(Math.max(lastScroll, 0), 800);
+              
+              decor.style.transform = `translateY(${y * -0.06}px)`;
+              sheen.style.transform = `rotate(-18deg) translateY(${y * -0.12}px)`;
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }
+        window.addEventListener('scroll', onScroll, {passive:true});
+      })();
 
 
+      
+    </script>
+  </body>
+  </html>
